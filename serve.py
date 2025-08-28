@@ -18,10 +18,14 @@ class CORSRequestHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
     def guess_type(self, path):
-        mimetype, encoding = super().guess_type(path)
+        result = super().guess_type(path)
+        mimetype = result[0] if result else None
         # Ensure JavaScript modules are served with correct MIME type
         if path.endswith('.js'):
             return 'application/javascript'
+        # Ensure CSS files are served with correct MIME type
+        if path.endswith('.css'):
+            return 'text/css'
         return mimetype
 
 def main():
