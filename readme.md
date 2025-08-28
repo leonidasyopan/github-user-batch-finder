@@ -5,11 +5,13 @@ A modern web application to search and identify GitHub users with batch processi
 ## ✨ Features
 
 - **Batch Search**: Search multiple GitHub users at once (comma-separated)
+- **GitHub Token Support**: Optional Personal Access Token for 5,000 requests/hour (vs 60 without)
 - **Clickable User Cards**: Click any user card to visit their GitHub profile
 - **Real-time Progress**: See results as they load with progress tracking
 - **Dark Theme**: Modern, clean interface with professional styling
 - **Responsive Design**: Works on desktop, tablet, and mobile devices
 - **Error Handling**: Clear feedback for invalid usernames or network issues
+- **Rate Limit Management**: Intelligent handling of GitHub API limits with helpful error messages
 
 ## 🚀 Quick Start
 
@@ -69,8 +71,16 @@ A modern web application to search and identify GitHub users with batch processi
 ### Basic Usage
 1. Enter GitHub username(s) in the search field
 2. For multiple users, separate with commas: `octocat, torvalds, gaearon`
-3. Click "Search" or press Enter
-4. Click on any user card to visit their GitHub profile
+3. **Optional**: Click "⚙️ API Configuration" to add a GitHub token for higher rate limits
+4. Click "Search" or press Enter
+5. Click on any user card to visit their GitHub profile
+
+### GitHub Token Setup (Optional but Recommended)
+1. **Click "⚙️ API Configuration"** to expand the token section
+2. **Create a Personal Access Token** at [GitHub Settings](https://github.com/settings/tokens)
+   - No permissions/scopes needed - just create a basic token
+3. **Paste the token** in the password field
+4. **Enjoy 5,000 requests/hour** instead of 60 (83x more!)
 
 ### Examples
 ```bash
@@ -80,7 +90,7 @@ octocat
 # Multiple users
 octocat, torvalds, gaearon, defunkt
 
-# Large batch (100+ users supported)
+# Large batch (500+ users supported with token)
 user1, user2, user3, user4, ...
 ```
 
@@ -124,10 +134,16 @@ The application follows **SOLID principles** and **Clean Architecture**:
 - Check browser console for errors
 - Verify internet connection
 
-**Rate Limiting**
-- GitHub limits: 60 requests/hour for unauthenticated users
-- Use smaller batches if hitting limits
-- Wait 5-10 minutes for reset
+**Rate Limiting (HTTP 403 Errors)**
+- **Without token**: 60 requests/hour limit
+- **With token**: 5,000 requests/hour limit
+- **Solution**: Add a GitHub Personal Access Token (see setup above)
+- **Temporary fix**: Wait 1 hour for rate limit reset or use smaller batches
+
+**Token Issues**
+- Ensure token starts with `ghp_` (classic tokens) or `github_pat_` (fine-grained)
+- No permissions/scopes required for public user data
+- Token is saved securely in browser localStorage
 
 ## 🌐 Browser Support
 
