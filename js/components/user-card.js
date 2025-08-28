@@ -60,17 +60,20 @@ export class UserCard {
      * @returns {HTMLElement} Card element
      */
     _createElement() {
-        const card = document.createElement('div');
-        card.className = 'user-card';
-        
         if (!this.userData.success) {
-            card.classList.add('user-card--error');
+            const card = document.createElement('div');
+            card.className = 'user-card user-card--error';
             card.innerHTML = this._createErrorContent();
+            return card;
         } else {
+            const card = document.createElement('a');
+            card.className = 'user-card';
+            card.href = this._getGitHubProfileUrl();
+            card.target = '_blank';
+            card.rel = 'noopener noreferrer';
             card.innerHTML = this._createSuccessContent();
+            return card;
         }
-
-        return card;
     }
 
     /**
@@ -86,6 +89,7 @@ export class UserCard {
             user.name || user.login || 'Unknown User',
             CONFIG.UI.MAX_DISPLAY_NAME_LENGTH
         );
+        const username = SecurityValidator.sanitizeText(user.login || 'unknown');
         const displayBio = SecurityValidator.truncateText(
             user.bio || 'No description available.',
             CONFIG.UI.MAX_DISPLAY_BIO_LENGTH
@@ -98,6 +102,7 @@ export class UserCard {
                  loading="lazy">
             <div class="user-card__info">
                 <h3 class="user-card__name">${SecurityValidator.sanitizeText(displayName)}</h3>
+                <p class="user-card__username">@${username}</p>
                 <p class="user-card__bio">${SecurityValidator.sanitizeText(displayBio)}</p>
             </div>
         `;
@@ -133,6 +138,17 @@ export class UserCard {
 
         // Return a data URI for a placeholder image
         return 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iIzMzMzMzMyIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IndoaXRlIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+Tm8gSW1hZ2U8L3RleHQ+PC9zdmc+';
+    }
+
+    /**
+     * Get the GitHub profile URL for the user
+     * @private
+     * @returns {string} GitHub profile URL
+     */
+    _getGitHubProfileUrl() {
+        const user = this.userData.data || this.userData;
+        const username = user.login || 'github';
+        return `https://github.com/${SecurityValidator.sanitizeText(username)}`;
     }
 }
 

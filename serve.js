@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Simple Node.js HTTP server for GitHub User Finder development
+ * Simple Node.js HTTP server for GitHub Profile Identifier development
  * Serves the application with proper CORS headers for ES6 modules
  */
 
@@ -68,7 +68,7 @@ function main() {
     const server = createServer();
 
     server.listen(port, () => {
-        console.log('🚀 GitHub User Finder development server');
+        console.log('🚀 GitHub Profile Identifier development server');
         console.log(`📡 Serving at http://localhost:${port}`);
         console.log(`📁 Directory: ${__dirname}`);
         console.log('🔧 ES6 modules enabled with CORS support');

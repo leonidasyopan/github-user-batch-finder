@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Simple HTTP server for GitHub User Finder development
+Simple HTTP server for GitHub Profile Identifier development
 Serves the application with proper CORS headers for ES6 modules
 """
 
@@ -36,7 +36,7 @@ def main():
     os.chdir(script_dir)
     
     with socketserver.TCPServer(("", port), CORSRequestHandler) as httpd:
-        print(f"🚀 GitHub User Finder development server")
+        print(f"🚀 GitHub Profile Identifier development server")
         print(f"📡 Serving at http://localhost:{port}")
         print(f"📁 Directory: {script_dir}")
         print(f"🔧 ES6 modules enabled with CORS support")

@@ -1,5 +1,5 @@
 /**
- * Configuration management for GitHub User Finder
+ * Configuration management for GitHub Profile Identifier
  * Centralized configuration following Single Responsibility Principle
  */
 

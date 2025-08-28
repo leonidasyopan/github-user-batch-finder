@@ -1,4 +1,4 @@
-# GitHub User Finder
+# GitHub Profiles Finder
 
 A professional, enterprise-grade web application built with **Clean Code** and **SOLID principles**. Search for GitHub users with unlimited batch processing, advanced security, and modern architecture.
 
