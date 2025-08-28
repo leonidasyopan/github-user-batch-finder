@@ -101,7 +101,7 @@ body {
 
 .search__button:hover {
     background: var(--secondary-color);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(30, 144, 255, 0.3);
 }
 
@@ -113,6 +113,78 @@ body {
     opacity: 0.6;
     cursor: not-allowed;
     transform: none;
+}
+
+/* Token Configuration */
+.search__config {
+    width: 100%;
+    margin-top: var(--spacing-md);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    background-color: rgba(42, 49, 66, 0.5);
+}
+
+.search__config-toggle {
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    user-select: none;
+    transition: color 0.3s ease;
+}
+
+.search__config-toggle:hover {
+    color: var(--text-color);
+}
+
+.search__config-content {
+    padding: var(--spacing-md);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search__config-label {
+    display: block;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.search__config-label small {
+    display: block;
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+    margin-top: 4px;
+}
+
+.search__config-input {
+    width: 100%;
+    padding: 10px var(--spacing-sm);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-family: 'Courier New', monospace;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search__config-input:focus {
+    border-color: var(--primary-color);
+}
+
+.search__config-help {
+    margin-top: var(--spacing-sm);
+    font-size: 0.8rem;
+}
+
+.search__config-help a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.search__config-help a:hover {
+    text-decoration: underline;
 }
 
 /* Progress Section */

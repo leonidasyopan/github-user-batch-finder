@@ -14,7 +14,8 @@ const CONFIG = {
         GITHUB_BASE_URL: 'https://api.github.com',
         RATE_LIMIT_DELAY: 1000,
         MAX_RETRIES: 3,
-        TIMEOUT: 10000
+        TIMEOUT: 10000,
+        GITHUB_TOKEN: null // Will be set from localStorage or user input
     },
     BATCH: {
         CHUNK_SIZE: 8,
@@ -152,14 +153,24 @@ class GitHubApiService {
 
         try {
             this.logger.debug(`Fetching user: ${username}`);
+            const headers = {
+                'Accept': 'application/vnd.github.v3+json',
+                'User-Agent': 'GitHub-Profile-Identifier'
+            };
+            
+            // Add authorization header if token is available
+            if (CONFIG.API.GITHUB_TOKEN) {
+                headers['Authorization'] = `token ${CONFIG.API.GITHUB_TOKEN}`;
+            }
+            
             const response = await fetch(`${CONFIG.API.GITHUB_BASE_URL}/users/${username}`, {
-                headers: {
-                    'Accept': 'application/vnd.github.v3+json',
-                    'User-Agent': 'GitHub-Profile-Identifier'
-                }
+                headers: headers
             });
 
             if (!response.ok) {
+                if (response.status === 403) {
+                    throw new Error(`Rate limit exceeded. ${CONFIG.API.GITHUB_TOKEN ? 'Token may be invalid or expired.' : 'Consider adding a GitHub token for higher limits.'}`);
+                }
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
 
@@ -548,6 +559,7 @@ class GitHubProfileIdentifier {
         this.elements = {
             searchInput: null,
             searchButton: null,
+            githubTokenInput: null,
             resultsContainer: null,
             resultsGrid: null,
             resultsSummary: null,
@@ -585,6 +597,7 @@ class GitHubProfileIdentifier {
     initializeElements() {
         this.elements.searchInput = document.getElementById('search-input');
         this.elements.searchButton = document.getElementById('search-button');
+        this.elements.githubTokenInput = document.getElementById('github-token');
         this.elements.resultsContainer = document.getElementById('results');
         this.elements.errorContainer = document.getElementById('error-container');
         this.elements.progressContainer = document.getElementById('progress-container');
@@ -592,6 +605,9 @@ class GitHubProfileIdentifier {
         if (!this.elements.searchInput || !this.elements.searchButton || !this.elements.resultsContainer) {
             throw new Error('Required DOM elements not found');
         }
+
+        // Load saved token from localStorage
+        this.loadGitHubToken();
     }
 
     /**
@@ -603,6 +619,12 @@ class GitHubProfileIdentifier {
         this.elements.searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.handleSearch();
         });
+        
+        // Handle GitHub token input changes
+        if (this.elements.githubTokenInput) {
+            this.elements.githubTokenInput.addEventListener('input', () => this.handleTokenChange());
+            this.elements.githubTokenInput.addEventListener('blur', () => this.saveGitHubToken());
+        }
     }
 
     /**
@@ -806,6 +828,57 @@ class GitHubProfileIdentifier {
      */
     hideError() {
         this.elements.errorContainer.className = 'error--hidden';
+    }
+
+    /**
+     * Load GitHub token from localStorage
+     * @private
+     */
+    loadGitHubToken() {
+        try {
+            const savedToken = localStorage.getItem('github-token');
+            if (savedToken && this.elements.githubTokenInput) {
+                this.elements.githubTokenInput.value = savedToken;
+                CONFIG.API.GITHUB_TOKEN = savedToken;
+                appLogger.debug('GitHub token loaded from localStorage');
+            }
+        } catch (error) {
+            appLogger.warn('Failed to load GitHub token from localStorage', error);
+        }
+    }
+
+    /**
+     * Save GitHub token to localStorage
+     * @private
+     */
+    saveGitHubToken() {
+        try {
+            const token = this.elements.githubTokenInput?.value?.trim();
+            if (token) {
+                localStorage.setItem('github-token', token);
+                appLogger.debug('GitHub token saved to localStorage');
+            } else {
+                localStorage.removeItem('github-token');
+                appLogger.debug('GitHub token removed from localStorage');
+            }
+        } catch (error) {
+            appLogger.warn('Failed to save GitHub token to localStorage', error);
+        }
+    }
+
+    /**
+     * Handle GitHub token input changes
+     * @private
+     */
+    handleTokenChange() {
+        const token = this.elements.githubTokenInput?.value?.trim();
+        CONFIG.API.GITHUB_TOKEN = token || null;
+        
+        if (token) {
+            appLogger.debug('GitHub token updated - rate limit increased to 5,000/hour');
+        } else {
+            appLogger.debug('GitHub token cleared - using unauthenticated rate limit (60/hour)');
+        }
     }
 }
 
