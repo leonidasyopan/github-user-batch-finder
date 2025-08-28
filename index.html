@@ -11,46 +11,55 @@
 </head>
 
 <body>
-    <!-- Header Section -->
-    <header class="header">
-        <img src="github.png" alt="GitHub Logo" class="header__logo">
-        <h1 class="header__title">GitHub Profile Identifier</h1>
-    </header>
+    <div class="page-container">
+        <div class="content">
+            <!-- Header Section -->
+            <header class="header">
+                <img src="github.png" alt="GitHub Logo" class="header__logo">
+                <h1 class="header__title">GitHub Profile Identifier</h1>
+            </header>
 
-    <!-- Search Section -->
-    <section class="search">
-        <input type="text" id="search-input" class="search__input"
-            placeholder="Enter GitHub username(s) - separate multiple with commas (unlimited)" autocomplete="off"
-            spellcheck="false">
-        <button id="search-button" class="search__button">Search</button>
-        
-        <!-- Token Configuration -->
-        <details class="search__config">
-            <summary class="search__config-toggle">⚙️ API Configuration (Optional)</summary>
-            <div class="search__config-content">
-                <label for="github-token" class="search__config-label">
-                    GitHub Personal Access Token:
-                    <small>Increases rate limit from 60 to 5,000 requests/hour</small>
-                </label>
-                <input type="password" id="github-token" class="search__config-input" 
-                       placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-                <div class="search__config-help">
-                    <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">
-                        Create token here
-                    </a> (no permissions needed)
-                </div>
-            </div>
-        </details>
-    </section>
+            <!-- Search Section -->
+            <section class="search">
+                <input type="text" id="search-input" class="search__input"
+                    placeholder="Enter GitHub username(s) - separate multiple with commas (unlimited)" autocomplete="off"
+                    spellcheck="false">
+                <button id="search-button" class="search__button">Search</button>
+                
+                <!-- Token Configuration -->
+                <details class="search__config">
+                    <summary class="search__config-toggle">⚙️ API Configuration (Optional)</summary>
+                    <div class="search__config-content">
+                        <label for="github-token" class="search__config-label">
+                            GitHub Personal Access Token:
+                            <small>Increases rate limit from 60 to 5,000 requests/hour</small>
+                        </label>
+                        <input type="password" id="github-token" class="search__config-input" 
+                               placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+                        <div class="search__config-help">
+                            <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">
+                                Create token here
+                            </a> (no permissions needed)
+                        </div>
+                    </div>
+                </details>
+            </section>
 
-    <!-- Progress Section -->
-    <div id="progress-container"></div>
+            <!-- Progress Section -->
+            <div id="progress-container"></div>
 
-    <!-- Error Container -->
-    <div id="error-container" class="error--hidden"></div>
+            <!-- Error Container -->
+            <div id="error-container" class="error--hidden"></div>
 
-    <!-- Results Section -->
-    <main id="results" class="results"></main>
+            <!-- Results Section -->
+            <main id="results" class="results"></main>
+        </div>
+
+        <!-- Footer Section -->
+        <footer class="footer">
+            <p>Created by <a href="https://github.com/leonidasyopan/github-user-batch-finder" target="_blank" rel="noopener">Leonidas Yopan</a></p>
+        </footer>
+    </div>
 
     <!-- JavaScript Application -->
     <script src="app.js"></script>
