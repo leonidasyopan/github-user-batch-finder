@@ -2,6 +2,12 @@
 
 A modern web application to search and identify GitHub users with batch processing capabilities. Features clickable user cards that link directly to GitHub profiles.
 
+## 🌐 **[Try it Live](https://leonidasyopan.github.io/github-user-batch-finder/)**
+
+**Live Demo**: https://leonidasyopan.github.io/github-user-batch-finder/
+
+*Test with usernames like: `octocat, torvalds, gaearon` or your own GitHub username!*
+
 ## ✨ Features
 
 - **Batch Search**: Search multiple GitHub users at once (comma-separated)
