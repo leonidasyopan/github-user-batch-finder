@@ -23,6 +23,24 @@
             placeholder="Enter GitHub username(s) - separate multiple with commas (unlimited)" autocomplete="off"
             spellcheck="false">
         <button id="search-button" class="search__button">Search</button>
+        
+        <!-- Token Configuration -->
+        <details class="search__config">
+            <summary class="search__config-toggle">⚙️ API Configuration (Optional)</summary>
+            <div class="search__config-content">
+                <label for="github-token" class="search__config-label">
+                    GitHub Personal Access Token:
+                    <small>Increases rate limit from 60 to 5,000 requests/hour</small>
+                </label>
+                <input type="password" id="github-token" class="search__config-input" 
+                       placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+                <div class="search__config-help">
+                    <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">
+                        Create token here
+                    </a> (no permissions needed)
+                </div>
+            </div>
+        </details>
     </section>
 
     <!-- Progress Section -->
@@ -34,8 +52,8 @@
     <!-- Results Section -->
     <main id="results" class="results"></main>
 
-    <!-- JavaScript Modules -->
-    <script type="module" src="js/app.js"></script>
+    <!-- JavaScript Application -->
+    <script src="app.js"></script>
 </body>
 
 </html>

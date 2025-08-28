@@ -1,0 +1,18 @@
+{
+  "name": "github-profile-identifier",
+  "version": "1.0.0",
+  "description": "A modern web application to search and identify GitHub users with batch processing capabilities",
+  "main": "js/app.js",
+  "scripts": {
+    "build": "node build.js",
+    "dev": "python3 -m http.server 8000",
+    "serve": "python3 -m http.server 8000"
+  },
+  "keywords": ["github", "profile", "search", "batch", "api"],
+  "author": "Leonidas Yopan",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leonidasyopan/github-user-batch-finder.git"
+  }
+}
