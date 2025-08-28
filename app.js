@@ -559,6 +559,9 @@ class GitHubProfileIdentifier {
         this.elements = {
             searchInput: null,
             searchButton: null,
+            settingsButton: null,
+            settingsDialog: null,
+            closeSettingsButton: null,
             githubTokenInput: null,
             resultsContainer: null,
             resultsGrid: null,
@@ -597,6 +600,9 @@ class GitHubProfileIdentifier {
     initializeElements() {
         this.elements.searchInput = document.getElementById('search-input');
         this.elements.searchButton = document.getElementById('search-button');
+        this.elements.settingsButton = document.getElementById('settings-button');
+        this.elements.settingsDialog = document.getElementById('settings-dialog');
+        this.elements.closeSettingsButton = document.getElementById('close-settings');
         this.elements.githubTokenInput = document.getElementById('github-token');
         this.elements.resultsContainer = document.getElementById('results');
         this.elements.errorContainer = document.getElementById('error-container');
@@ -619,6 +625,23 @@ class GitHubProfileIdentifier {
         this.elements.searchInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.handleSearch();
         });
+        
+        // Handle settings dialog
+        if (this.elements.settingsButton) {
+            this.elements.settingsButton.addEventListener('click', () => this.openSettings());
+        }
+        
+        if (this.elements.closeSettingsButton) {
+            this.elements.closeSettingsButton.addEventListener('click', () => this.closeSettings());
+        }
+        
+        if (this.elements.settingsDialog) {
+            this.elements.settingsDialog.addEventListener('click', (e) => {
+                if (e.target === this.elements.settingsDialog) {
+                    this.closeSettings();
+                }
+            });
+        }
         
         // Handle GitHub token input changes
         if (this.elements.githubTokenInput) {
@@ -878,6 +901,28 @@ class GitHubProfileIdentifier {
             appLogger.debug('GitHub token updated - rate limit increased to 5,000/hour');
         } else {
             appLogger.debug('GitHub token cleared - using unauthenticated rate limit (60/hour)');
+        }
+    }
+
+    /**
+     * Open settings dialog
+     * @private
+     */
+    openSettings() {
+        if (this.elements.settingsDialog) {
+            this.elements.settingsDialog.showModal();
+            appLogger.debug('Settings dialog opened');
+        }
+    }
+
+    /**
+     * Close settings dialog
+     * @private
+     */
+    closeSettings() {
+        if (this.elements.settingsDialog) {
+            this.elements.settingsDialog.close();
+            appLogger.debug('Settings dialog closed');
         }
     }
 }

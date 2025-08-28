@@ -12,6 +12,12 @@
 
 <body>
     <div class="page-container">
+        <!-- Settings Button (Top-right corner) -->
+        <button id="settings-button" class="settings-button" title="API Configuration">
+            <span class="settings-button__icon">⚙️</span>
+            <span class="settings-button__text">API Configuration (Optional)</span>
+        </button>
+        
         <div class="content">
             <!-- Header Section -->
             <header class="header">
@@ -25,24 +31,6 @@
                     placeholder="Enter GitHub username(s) - separate multiple with commas (unlimited)" autocomplete="off"
                     spellcheck="false">
                 <button id="search-button" class="search__button">Search</button>
-                
-                <!-- Token Configuration -->
-                <details class="search__config">
-                    <summary class="search__config-toggle">⚙️ API Configuration (Optional)</summary>
-                    <div class="search__config-content">
-                        <label for="github-token" class="search__config-label">
-                            GitHub Personal Access Token:
-                            <small>Increases rate limit from 60 to 5,000 requests/hour</small>
-                        </label>
-                        <input type="password" id="github-token" class="search__config-input" 
-                               placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
-                        <div class="search__config-help">
-                            <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">
-                                Create token here
-                            </a> (no permissions needed)
-                        </div>
-                    </div>
-                </details>
             </section>
 
             <!-- Progress Section -->
@@ -60,6 +48,29 @@
             <p>Created by <a href="https://github.com/leonidasyopan/github-user-batch-finder" target="_blank" rel="noopener">Leonidas Yopan</a></p>
         </footer>
     </div>
+
+    <!-- Settings Dialog -->
+    <dialog id="settings-dialog" class="settings-dialog">
+        <div class="settings-dialog__content">
+            <div class="settings-dialog__header">
+                <h3>API Configuration</h3>
+                <button id="close-settings" class="settings-dialog__close">&times;</button>
+            </div>
+            <div class="settings-dialog__body">
+                <label for="github-token" class="settings-dialog__label">
+                    GitHub Personal Access Token:
+                    <small>Increases rate limit from 60 to 5,000 requests/hour</small>
+                </label>
+                <input type="password" id="github-token" class="settings-dialog__input" 
+                       placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+                <div class="settings-dialog__help">
+                    <a href="https://github.com/settings/tokens" target="_blank" rel="noopener">
+                        Create token here
+                    </a> (no permissions needed)
+                </div>
+            </div>
+        </div>
+    </dialog>
 
     <!-- JavaScript Application -->
     <script src="app.js"></script>
