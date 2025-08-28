@@ -33,7 +33,7 @@ export class ProgressBar {
      */
     show() {
         if (this.element) {
-            this.progressWarning.className = this.isVisible ? 'progress__warning progress__warning--visible' : 'progress__warning';
+            this.element.style.display = 'block';
             this.isVisible = true;
             logger.debug('Progress bar shown');
         }
