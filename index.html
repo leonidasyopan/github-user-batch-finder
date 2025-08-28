@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' https://avatars.githubusercontent.com https://github.com; connect-src 'self' https://api.github.com; style-src 'self'; script-src 'self';">
+    <title>GitHub User Finder</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <img src="github.png" alt="GitHub Logo" class="header__logo">
+        <h1 class="header__title">GitHub User Finder</h1>
+    </header>
+
+    <!-- Search Section -->
+    <section class="search">
+        <input 
+            type="text" 
+            id="search-input" 
+            class="search__input"
+            placeholder="Enter GitHub username(s) - separate multiple with commas (unlimited)"
+            autocomplete="off"
+            spellcheck="false">
+        <button id="search-button" class="search__button">Search</button>
+    </section>
+
+    <!-- Progress Section -->
+    <div id="progress-container"></div>
+
+    <!-- Error Container -->
+    <div id="error-container" class="error--hidden"></div>
+
+    <!-- Results Section -->
+    <main id="results" class="results"></main>
+
+    <!-- JavaScript Modules -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
